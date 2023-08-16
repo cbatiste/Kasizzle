@@ -4,8 +4,8 @@ export default function Hero() {
   return (
     <section className={'mt-[55vw]'}>
       <div className={'absolute top-0 left-0 right-0 w-full max-h-[55vw] overflow-hidden -z-20'}>
-        <video autoPlay muted loop className={styles.video}>
-          <source src={'/hero/Kasizzle Landscape Video.mov'} type={'video/mp4'} />
+        <video autoPlay muted loop className={styles.video} poster="/hero/hero-poster.jpg">
+          <source src={'/hero/Kasizzle Landscape Video.mp4'} type={'video/mp4'} />
         </video>
       </div>
 
