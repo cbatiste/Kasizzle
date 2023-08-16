@@ -16,7 +16,7 @@ function Booking(props) {
 export default function Performances() {
   const performanceData = useContext(DataContext).performances;
   let performances = performanceData?.sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
+    new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
   return (

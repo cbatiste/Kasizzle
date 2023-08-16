@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
 import styles from './Header.module.css';
-import {FaApple, FaBars, FaInstagram, FaSpotify, FaTwitter} from "react-icons/fa";
+import {FaApple, FaBars, FaInstagram, FaSpotify} from "react-icons/fa";
+import {BsEnvelope} from "react-icons/bs";
 
 function HeaderLink(props) {
   return (
@@ -20,7 +20,7 @@ export default function Header() {
             <HeaderLink href={'#about'}>ABOUT</HeaderLink>
             <HeaderLink href={'#music'}>MUSIC</HeaderLink>
             <div className={'w-[1px] h-[24px] bg-white mx-3'}></div>
-            <HeaderLink href={'https://journal.kasizzle.se'}>BLOG</HeaderLink>
+            <HeaderLink href={'https://blog.kasizzle.se'}>BLOG</HeaderLink>
           </div>
 
           <div className="flex shrink cursor-pointer" onClick={() => window.location.href='/'}>
@@ -32,10 +32,10 @@ export default function Header() {
           </div>
 
           <div className={'hidden lg:flex flex-1 justify-end'}>
-            <FaSpotify className={'text-2xl mx-4'} />
-            <FaApple className={'text-2xl mx-4'} />
-            <FaInstagram className={'text-2xl mx-4'} />
-            <FaTwitter className={'text-2xl mx-4'} />
+            <a href={'https://open.spotify.com/artist/5HAbkJVLDtTYmngkW16mrk'} target={'_blank'} className={'mx-4 text-2xl'}><FaSpotify /></a>
+            <a href={'https://music.apple.com/us/artist/kasizzle/1513360621'} target={'_blank'} className={'mx-4 text-2xl'}><FaApple /></a>
+            <a href={'https://www.instagram.com/kasizzle/'} target={'_blank'} className={'mx-4 text-2xl'}><FaInstagram /></a>
+            <a href={'mailto:erik@kasizzle.se'} target={'_blank'} className={'mx-4 text-2xl'}><BsEnvelope /></a>
           </div>
         </div>
       </nav>

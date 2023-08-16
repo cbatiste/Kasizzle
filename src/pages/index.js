@@ -16,7 +16,7 @@ export default function Home() {
   }`;
 
   const musicQuery = `*[_type == "music"] {
-    type, title, artist, description, writtenBy, producedBy, performedBy, source, artwork, trackListing,
+    type, title, artist, description, writtenBy, producedBy, performedBy, source, artwork, trackListing, spotifyURL,
     'photo': photo.asset -> {url, altText, 'dimensions': metadata.dimensions}
   }`;
 

@@ -1,4 +1,5 @@
 import {useState, useContext} from "react";
+import {Spotify} from "react-spotify-embed";
 import {DataContext} from "pages";
 import {PiSwap, PiVinylRecord} from "react-icons/pi";
 import {RiSoundModuleLine} from "react-icons/ri";
@@ -21,13 +22,11 @@ function MusicOverlay(props) {
     if (props.onClose) props.onClose();
   }
 
-  console.log(music);
-
   return (
-    <div className={'fixed inset-0 z-40'}>
+    <div className={'fixed flex pb-8 inset-0 z-40'}>
       <div className={'absolute inset-0 bg-black/75 cursor-pointer bg-black/75'} onClick={handleClose}></div>
 
-      <div className={'relative mt-[25vh] w-[80%] max-w-[800px] m-auto p-12 bg-neutral-900 rounded-lg z-50'}>
+      <div className={'relative w-[80%] max-w-[800px] max-h-[80vh] overflow-y-auto m-auto p-12 bg-neutral-900 border-2 border-neutral-800 rounded-lg z-50'}>
         <div className={'flex flex-row'}>
           <div className={'flex flex-col grow'}>
             <h2 className={'text-5xl mb-2'}>{music.title}</h2>
@@ -74,6 +73,13 @@ function MusicOverlay(props) {
             { music.artwork && <p className={'mb-2'}>Artwork: {music.artwork}</p> }
           </div>
         </div>
+
+        {
+          music.spotifyURL &&
+          <div className={'mt-12'}>
+            <Spotify wide link={music.spotifyURL} />
+          </div>
+        }
       </div>
     </div>
   );
