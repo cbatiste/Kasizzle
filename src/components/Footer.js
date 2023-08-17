@@ -35,14 +35,14 @@ export default function Footer() {
                    className={'mx-2 sm:mx-4 text-5xl hover:scale-105 duration-100'}><FaSpotify />
                 </a>
                 <a href={'https://music.apple.com/us/artist/kasizzle/1513360621'} target={'_blank'}
-                   className={'mx-2 sm:mx-4 text-5xl hover:scale-105 duration-100'}><FaApple />
+                   className={'mx-2 mb-2 sm:mx-4 text-5xl hover:scale-105 duration-100'}><FaApple />
                 </a>
                 <a href={'https://music.youtube.com/channel/UCPTtsM8DUt7mNhkry72wSBg'} target={'_blank'}
                    className={'mx-2 sm:mx-4 text-5xl hover:scale-105 duration-100'}><SiYoutubemusic />
                 </a>
                 <a href={'https://music.amazon.com/artists/B088MFKTLC/kasizzle'} target={'_blank'}
-                   className={'mx-2 sm:mx-4 text-5xl hover:scale-105 duration-100'}><AiFillAmazonCircle
-                  className={'p-[1px]'} />
+                   className={'mx-2 sm:mx-4 text-6xl hover:scale-105 duration-100'}><AiFillAmazonCircle
+                  className={'p-[2px]'} />
                 </a>
               </div>
             </div>
