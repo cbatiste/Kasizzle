@@ -51,8 +51,9 @@ export default function Header() {
             <HeaderLink href={'https://blog.kasizzle.se'}>BLOG</HeaderLink>
           </div>
 
-          <div className={`${!headerOpaque ? 'lg:opacity-0' : 'opacity-100'} transition-all flex shrink cursor-pointer`}
-               onClick={() => window.location.href = '/'}>
+          <div
+            className={`${!headerOpaque ? 'lg:opacity-0' : 'opacity-100 lg:opacity-0 xl:opacity-100'} transition-all flex shrink cursor-pointer`}
+            onClick={() => window.location.href = '/'}>
             <img className="inline-block w-auto h-[40px] sm:h-[48px]" src="/logo-dark-sm.png" alt="Kasizzle Logo" />
           </div>
 

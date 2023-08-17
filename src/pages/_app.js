@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { Space_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
-const Space_MonoVariable = Space_Mono({subsets: ['latin'], weight: ['400', '700']});
+const Space_MonoVariable = Space_Mono({ subsets: [ 'latin' ], weight: [ '400', '700' ] });
 
 const FuturaPTBold = localFont({
   src: '../assets/FuturaPTBold.otf',
@@ -16,7 +16,7 @@ const FuturaPTLight = localFont({
 });
 
 
-export default function App({Component, pageProps}) {
+export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
