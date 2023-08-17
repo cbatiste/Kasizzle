@@ -1,6 +1,6 @@
 import 'styles/globals.css';
-import Head from "next/head";
-import {Space_Mono} from 'next/font/google';
+import Head from 'next/head';
+import { Space_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
 const Space_MonoVariable = Space_Mono({subsets: ['latin'], weight: ['400', '700']});
@@ -16,7 +16,7 @@ const FuturaPTLight = localFont({
 });
 
 
-export default function App({ Component, pageProps }) {
+export default function App({Component, pageProps}) {
   return (
     <>
       <Head>
@@ -32,16 +32,22 @@ export default function App({ Component, pageProps }) {
           font-family: ${FuturaPTBold.style.fontFamily};
           letter-spacing: 0.6px;
         }
-        
+
+        @media (max-width: 639px) {
+          h1, h2, h3, h4, h5, h6 {
+            letter-spacing: -0.4px;
+          }
+        }
+
         .header-heavy {
           font-family: ${FuturaPTBold.style.fontFamily};
         }
-        
+
         .header-light {
           font-family: ${FuturaPTLight.style.fontFamily};
         }
       `}</style>
       <Component {...pageProps} />
     </>
-  )
+  );
 }

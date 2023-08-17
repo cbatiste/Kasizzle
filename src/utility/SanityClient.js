@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {createClient} from '@sanity/client';
+import { useEffect, useState } from 'react';
+import { createClient } from '@sanity/client';
 
 export const SanityClient = createClient({
   projectId: 'zuriny6u',
@@ -15,7 +15,7 @@ export const useSanityQuery = (query) => {
     const fetchData = async () => {
       let response = await SanityClient.fetch(query);
       setData(response);
-    }
+    };
 
     fetchData();
   }, [query]);

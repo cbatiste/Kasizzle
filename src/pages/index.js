@@ -1,12 +1,12 @@
-import {createContext} from 'react';
-import {useSanityQuery} from "utility/SanityClient";
+import { createContext } from 'react';
+import { useSanityQuery } from 'utility/SanityClient';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Hero from 'components/landing/Hero';
-import Performances from "../components/landing/Performances";
-import About from "../components/landing/About";
-import Music from "../components/landing/Music";
+import Performances from '../components/landing/Performances';
+import About from '../components/landing/About';
+import Music from '../components/landing/Music';
 
 export const DataContext = createContext(null);
 
@@ -30,17 +30,15 @@ export default function Home() {
         <Header />
 
         <div className={'flex flex-col pb-64'}>
-          <div className={'flex flex-col'}>
-            <Hero />
+          <Hero />
 
-            <Performances />
-            <About />
-            <Music />
-          </div>
+          <Performances />
+          <About />
+          <Music />
         </div>
 
         <Footer />
       </main>
     </DataContext.Provider>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import {useState, useContext} from "react";
-import {Spotify} from "react-spotify-embed";
-import {DataContext} from "pages";
-import {PiSwap, PiVinylRecord} from "react-icons/pi";
-import {RiSoundModuleLine} from "react-icons/ri";
-import {FaTimes} from "react-icons/fa";
+import { useContext, useState } from 'react';
+import { Spotify } from 'react-spotify-embed';
+import { DataContext } from 'pages';
+import { PiSwap, PiVinylRecord } from 'react-icons/pi';
+import { RiSoundModuleLine } from 'react-icons/ri';
+import { FaTimes } from 'react-icons/fa';
 
 function Card(props) {
   return (
@@ -20,13 +20,14 @@ function MusicOverlay(props) {
 
   const handleClose = () => {
     if (props.onClose) props.onClose();
-  }
+  };
 
   return (
     <div className={'fixed flex pb-8 inset-0 z-40'}>
       <div className={'absolute inset-0 bg-black/75 cursor-pointer bg-black/75'} onClick={handleClose}></div>
 
-      <div className={'relative w-[80%] max-w-[800px] max-h-[80vh] overflow-y-auto m-auto p-12 bg-neutral-900 border-2 border-neutral-800 rounded-lg z-50'}>
+      <div
+        className={'relative w-[80%] max-w-[800px] max-h-[80vh] overflow-y-auto m-auto p-12 bg-neutral-900 border-2 border-neutral-800 rounded-lg z-50'}>
         <div className={'flex flex-row'}>
           <div className={'flex flex-col grow'}>
             <h2 className={'text-5xl mb-2'}>{music.title}</h2>
@@ -36,7 +37,7 @@ function MusicOverlay(props) {
             <div
               className={'rounded-full p-1 border-2 border-transparent hover:border-white transition ease-in duration-100 cursor-pointer'}
               onClick={handleClose}>
-              <FaTimes className={'text-4xl'} title={'Close photo album'}/>
+              <FaTimes className={'text-4xl'} title={'Close photo album'} />
             </div>
           </div>
         </div>
@@ -64,13 +65,13 @@ function MusicOverlay(props) {
 
         <div className={'flex flex-col lg:flex-row mt-12 text-base'}>
           <div className={'flex-1'}>
-            { music.writtenBy && <p className={'mb-2'}>Written by: {music.writtenBy}</p> }
-            { music.performedBy && <p className={'mb-2'}>Performed by: {music.performedBy}</p> }
-            { music.producedBy && <p className={'mb-2'}>Produced by: {music.producedBy}</p> }
+            {music.writtenBy && <p className={'mb-2'}>Written by: {music.writtenBy}</p>}
+            {music.performedBy && <p className={'mb-2'}>Performed by: {music.performedBy}</p>}
+            {music.producedBy && <p className={'mb-2'}>Produced by: {music.producedBy}</p>}
           </div>
           <div className={'flex-1'}>
-            { music.source && <p className={'mb-2'}>Source: {music.source}</p> }
-            { music.artwork && <p className={'mb-2'}>Artwork: {music.artwork}</p> }
+            {music.source && <p className={'mb-2'}>Source: {music.source}</p>}
+            {music.artwork && <p className={'mb-2'}>Artwork: {music.artwork}</p>}
           </div>
         </div>
 
@@ -146,5 +147,5 @@ export default function Music() {
         </div>
       </div>
     </section>
-  )
+  );
 }

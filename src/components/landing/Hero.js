@@ -1,20 +1,48 @@
 import styles from './Hero.module.css';
+import { useEffect, useState } from 'react';
 
 export default function Hero() {
-  return (
-    <section className={'mt-[55vw]'}>
-      <div className={'absolute top-0 left-0 right-0 w-full max-h-[55vw] overflow-hidden -z-20'}>
-        <video autoPlay muted loop className={styles.video} poster="/hero/hero-poster.jpg">
-          <source src={'/hero/Kasizzle Landscape Video.mp4'} type={'video/mp4'} />
-        </video>
-      </div>
+  let [mobileView, setMobileView] = useState(false);
+  const mobileMaxViewportWidth = 1023;
 
-      <div className={'absolute top-[14vw] -z-10 left-0 right-0'}>
-        <div className={'text-center'}>
-          <img src={'/logo-dark.png'} alt={'Kasizzle Logo'} className={'m-auto w-[20%] h-[20%]'} />
-          <h3 className={'text-4xl md:text-5xl lg:text-6xl font-black mt-2 pr-1'}>KASIZZLE</h3>
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= mobileMaxViewportWidth && !mobileView) {
+        setMobileView(true);
+      } else if (window.innerWidth > mobileMaxViewportWidth && mobileView) {
+        setMobileView(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [mobileView]);
+
+  return (
+    <section>
+      <div className={'relative w-full max-h-[100vh] overflow-hidden'} id={'hero'}>
+        <video playsInline autoPlay muted loop className={styles.video} key={mobileView ? 1 : 2}
+               poster={mobileView ? '/hero/hero-poster-mobile.jpg' : '/hero/hero-poster.jpg'}>
+          {mobileView ? (
+            <source src={'/hero/Eriks Vertical DJ Video.mp4'} type={'video/mp4'} />
+          ) : (
+            <source src={'/hero/Kasizzle Landscape Video.mp4'} type={'video/mp4'} />
+          )}
+        </video>
+
+
+        <div className={'absolute inset-0 flex flex-row items-center'}>
+          <div className={'flex w-full flex-col items-center ml-1 sm:m-0'}>
+            <img src={'/logo-dark.png'} alt={'Kasizzle Logo'}
+                 className={'w-[45%] h-[45%] sm:w-[35%] sm:w-[35%] md:w-[25%] md:h-[25%] lg:w-[20%] lg:h-[20%]'} />
+            <h3 className={'text-5xl lg:text-6xl font-black mt-2'}>KASIZZLE</h3>
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

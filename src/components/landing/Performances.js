@@ -1,8 +1,8 @@
-import {useContext} from "react";
-import {DataContext} from "pages";
+import { useContext } from 'react';
+import { DataContext } from 'pages';
 
 function Booking(props) {
-  let date = new Date(props.date.replace(/-/g, "/")).toLocaleDateString("sv-SE");
+  let date = new Date(props.date.replace(/-/g, '/')).toLocaleDateString('sv-SE');
 
   return (
     <div className={'flex flex-row text-center mb-3 text-lg'}>
@@ -26,10 +26,11 @@ export default function Performances() {
       <div className={'mt-12 flex flex-col'}>
         {
           performances?.length ? performances.map((performance, index) => (
-            <Booking venue={performance.venue} date={performance.date} start={performance.startTime} end={performance.endTime} key={index} />
+            <Booking venue={performance.venue} date={performance.date} start={performance.startTime}
+                     end={performance.endTime} key={index} />
           )) : 'More performances to be announced'
         }
       </div>
     </section>
-  )
+  );
 }
