@@ -32,8 +32,8 @@ export default function Performances() {
   };
 
   return (
-    <section className={'px-7 sm:px-[10%] lg:px-[12%] my-8 min-h-[90vh]'} id={'performances'}>
-      <h2 className={'mt-8 md:mt-32 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black py-12'}>PERFORMANCES</h2>
+    <section className={'px-7 sm:px-[10%] lg:px-[12%] my-12 min-h-[90vh]'} id={'performances'}>
+      <h2 className={'mt-8 md:mt-32 text-5xl md:text-6xl lg:text-7xl font-black py-12'}>UPCOMING</h2>
 
       <motion.div className={'mt-4 md:mt-12 flex flex-col'}
                   initial="hidden"

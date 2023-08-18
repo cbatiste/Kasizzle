@@ -6,7 +6,7 @@ import { AiFillAmazonCircle } from 'react-icons/ai';
 
 export default function Footer() {
   return (
-    <footer className={`${styles.footer} relative py-20 mt-24 px-8 sm:px-16 lg:px-24 xl:px-36 w-full`}>
+    <footer className={`${styles.footer} relative py-20 mt-0 md:mt-24 px-8 sm:px-16 lg:px-24 xl:px-36 w-full`}>
       <div className={'max-w-[1600px] flex flex-col m-auto z-20'}>
         <h4 className={'text-4xl sm:text-5xl font-bold'}>CONTACT</h4>
 

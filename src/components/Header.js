@@ -14,8 +14,8 @@ function HeaderLink(props) {
 }
 
 export default function Header() {
-  let [dropdownVisible, setDropdownVisible] = useState(false);
-  let [headerOpaque, setHeaderOpaque] = useState(false);
+  let [ dropdownVisible, setDropdownVisible ] = useState(false);
+  let [ headerOpaque, setHeaderOpaque ] = useState(false);
 
   const handleDropdownSelect = () => {
     if (dropdownVisible) setDropdownVisible(false);
@@ -36,7 +36,7 @@ export default function Header() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [headerOpaque]);
+  }, [ headerOpaque ]);
 
   return (
     <header className={`fixed left-0 top-0 right-0 items-center z-10 transition-all
@@ -44,7 +44,7 @@ export default function Header() {
       <div className={'flex flex-col'}>
         <div className="flex w-full flex-row items-center py-3 px-5 lg:px-12 xl:px-[5%]">
           <div className={'flex-1 text-base hidden lg:flex flex-row'}>
-            <HeaderLink href={'#performances'}>PERFORMANCES</HeaderLink>
+            <HeaderLink href={'#performances'}>UPCOMING</HeaderLink>
             <HeaderLink href={'#about'}>ABOUT</HeaderLink>
             <HeaderLink href={'#music'}>MUSIC</HeaderLink>
             <div className={'w-[1px] h-[24px] bg-white mx-3'}></div>
@@ -82,7 +82,7 @@ export default function Header() {
           className={`flex flex-col ${dropdownVisible ? 'border-t max-h-[320px] duration-500' : 'max-h-0 duration-300'}
                       transition-all overflow-hidden lg:hidden border-neutral-900`}>
           <div className={'flex flex-col mt-4'}>
-            <HeaderLink onClick={handleDropdownSelect} href={'#performances'}>PERFORMANCES</HeaderLink>
+            <HeaderLink onClick={handleDropdownSelect} href={'#performances'}>UPCOMING</HeaderLink>
             <HeaderLink onClick={handleDropdownSelect} href={'#about'}>ABOUT</HeaderLink>
             <HeaderLink onClick={handleDropdownSelect} href={'#music'}>MUSIC</HeaderLink>
             <HeaderLink onClick={handleDropdownSelect} href={'https://blog.kasizzle.se'}

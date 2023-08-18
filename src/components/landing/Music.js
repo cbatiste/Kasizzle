@@ -1,15 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Spotify } from 'react-spotify-embed';
 import { DataContext } from 'pages';
 import { PiSwap, PiVinylRecord } from 'react-icons/pi';
 import { RiSoundModuleLine } from 'react-icons/ri';
 import { FaTimes } from 'react-icons/fa';
+import useOnScreen from '../../utility/useOnScreen';
 
 function Card(props) {
   return (
-    <div className={'m-6 hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer'} onClick={() => {
-      if (props.onClick) props.onClick();
-    }}>
+    <div className={'m-2 md:m-6 hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer'}
+         onClick={() => {
+           if (props.onClick) props.onClick();
+         }}>
       <img src={props.image.url} alt={props.title} className={'w-full'} />
     </div>
   );
@@ -17,6 +20,13 @@ function Card(props) {
 
 function MusicOverlay(props) {
   let music = props.music;
+
+  useEffect(() => {
+    document.body.classList.add('overflow-hidden', 'md:overflow-auto');
+    return () => {
+      document.body.classList.remove('overflow-hidden', 'md:overflow-auto');
+    };
+  }, []);
 
   const handleClose = () => {
     if (props.onClose) props.onClose();
@@ -26,18 +36,18 @@ function MusicOverlay(props) {
     <div className={'fixed flex pb-8 inset-0 z-40'}>
       <div className={'absolute inset-0 bg-black/75 cursor-pointer bg-black/75'} onClick={handleClose}></div>
 
-      <div
-        className={'relative w-[80%] max-w-[800px] max-h-[80vh] overflow-y-auto m-auto p-12 bg-neutral-900 border-2 border-neutral-800 rounded-lg z-50'}>
+      <div className={`absolute inset-0 md:relative md:w-[80%] md:max-w-[800px] md:max-h-[80vh] overflow-y-auto m-auto
+                       px-8 py-12 md:p-12 bg-neutral-900 md:border-2 border-neutral-800 md:rounded-lg z-50`}>
         <div className={'flex flex-row'}>
           <div className={'flex flex-col grow'}>
-            <h2 className={'text-5xl mb-2'}>{music.title}</h2>
-            <p className={'text-3xl header-light'}>{music.artist}</p>
+            <h2 className={'text-4xl md:text-5xl mb-2'}>{music.title}</h2>
+            <p className={'text-2xl md:text-3xl header-light'}>{music.artist}</p>
           </div>
           <div className={'flex flex-col shrink'}>
             <div
               className={'rounded-full p-1 border-2 border-transparent hover:border-white transition ease-in duration-100 cursor-pointer'}
               onClick={handleClose}>
-              <FaTimes className={'text-4xl'} title={'Close photo album'} />
+              <FaTimes className={'text-4xl'} title={'Close music info'} />
             </div>
           </div>
         </div>
@@ -92,11 +102,20 @@ export default function Music() {
   let mixes = musicData?.filter(music => music.type === 'DJ Mix');
   let productions = musicData?.filter(music => music.type === 'Production');
 
-  let [activeCard, setActiveCard] = useState(null);
+  let [ activeCard, setActiveCard ] = useState(null);
+
+  const musicAnim = { visible: { transition: { staggerChildren: 0.2 } } };
+  const musicItemAnim = {
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 24 } },
+    hidden: { opacity: 0, y: 20 }
+  };
+
+  let containerRef = useRef(null);
+  let containerVisible = useOnScreen(containerRef);
 
   return (
-    <section className={'px-7 sm:px-[10%] lg:px-[12%] my-8 min-h-[80vh]'} id={'music'}>
-      <h2 className={'mt-24 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black py-12'}>MUSIC</h2>
+    <section className={'px-7 sm:px-[10%] lg:px-[12%] my-8'} id={'music'}>
+      <h2 className={'mt-24 text-5xl md:text-6xl lg:text-7xl font-black py-12'}>MUSIC</h2>
 
       {
         activeCard && <MusicOverlay music={activeCard} onClose={() => setActiveCard(null)} />
@@ -108,13 +127,22 @@ export default function Music() {
           <span className={'px-4'}>Singles/Albums</span>
         </h3>
 
-        <div className={'grid grid-cols-3'}>
+        <motion.div className={'grid grid-cols-2 lg:grid-cols-3'}
+                    initial="hidden"
+                    animate={containerVisible ? 'visible' : ''}
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-200px' }}
+                    variants={musicAnim}
+                    ref={containerRef}>
           {
             music?.length ? music.map((card, index) => (
-              <Card image={card.photo} alt={card.title} onClick={() => setActiveCard(card)} key={index} />
+              <motion.div variants={musicItemAnim} key={index}>
+                <Card image={card.photo} alt={card.title} onClick={() => setActiveCard(card)}
+                      variants={musicItemAnim} />
+              </motion.div>
             )) : ''
           }
-        </div>
+        </motion.div>
       </div>
 
       <div className={'mb-12'}>

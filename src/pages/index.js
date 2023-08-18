@@ -22,14 +22,14 @@ export default function Home() {
 
   let performancesData = useSanityQuery(performancesQuery);
   let musicData = useSanityQuery(musicQuery);
-  let apiData = {performances: performancesData, music: musicData};
+  let apiData = { performances: performancesData, music: musicData };
 
   return (
     <DataContext.Provider value={apiData}>
       <main className={`flex min-h-screen flex-col`}>
         <Header />
 
-        <div className={'flex flex-col pb-64'}>
+        <div className={'flex flex-col pb-48 md:pb-64'}>
           <Hero />
 
           <Performances />
