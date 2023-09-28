@@ -2,14 +2,14 @@ import styles from './Hero.module.css';
 import { useEffect, useState } from 'react';
 
 export default function Hero() {
-  let [mobileView, setMobileView] = useState(false);
+  let [ mobileView, setMobileView ] = useState(null);
   const mobileMaxViewportWidth = 1023;
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= mobileMaxViewportWidth && !mobileView) {
         setMobileView(true);
-      } else if (window.innerWidth > mobileMaxViewportWidth && mobileView) {
+      } else if (window.innerWidth > mobileMaxViewportWidth && (mobileView || mobileView === null)) {
         setMobileView(false);
       }
     };
@@ -20,19 +20,21 @@ export default function Hero() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [mobileView]);
+  }, [ mobileView ]);
 
   return (
     <section>
       <div className={'relative w-full max-h-[100vh] overflow-hidden'} id={'hero'}>
-        <video playsInline autoPlay muted loop className={styles.video} key={mobileView ? 1 : 2}
-               poster={mobileView ? '/hero/hero-poster-mobile.jpg' : '/hero/hero-poster.jpg'}>
-          {mobileView ? (
-            <source src={'/hero/Eriks Vertical DJ Video.mp4'} type={'video/mp4'} />
-          ) : (
-            <source src={'/hero/Kasizzle Landscape Video.mp4'} type={'video/mp4'} />
-          )}
-        </video>
+        {mobileView !== null &&
+          <video playsInline autoPlay muted loop className={styles.video} key={mobileView ? 1 : 2}
+                 poster={mobileView ? '/hero/hero-poster-mobile.jpg' : '/hero/hero-poster.jpg'}>
+            {mobileView ? (
+              <source src={'/hero/Eriks Vertical DJ Video.mp4'} type={'video/mp4'} />
+            ) : (
+              <source src={'/hero/Kasizzle Landscape Video.mp4'} type={'video/mp4'} />
+            )}
+          </video>
+        }
 
 
         <div className={'absolute inset-0 flex flex-row items-center'}>

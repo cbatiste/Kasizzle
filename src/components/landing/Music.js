@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import AudioPlayer from '../AudioPlayer';
 import { Spotify } from 'react-spotify-embed';
 import { DataContext } from 'pages';
 import { PiSwap, PiVinylRecord } from 'react-icons/pi';
@@ -96,13 +97,61 @@ function MusicOverlay(props) {
   );
 }
 
+function MixOverlay(props) {
+  let mix = props.mix;
+
+  useEffect(() => {
+    document.body.classList.add('overflow-hidden', 'md:overflow-auto');
+    return () => {
+      document.body.classList.remove('overflow-hidden', 'md:overflow-auto');
+    };
+  }, []);
+
+  const handleClose = () => {
+    if (props.onClose) props.onClose();
+  };
+
+  return (
+    <div className={'fixed flex pb-8 inset-0 z-40'}>
+      <div className={'absolute inset-0 bg-black/75 cursor-pointer bg-black/75'} onClick={handleClose}></div>
+
+      <div className={`absolute inset-0 md:relative md:w-[80%] md:max-w-[800px] md:max-h-[80vh] overflow-y-auto m-auto
+                       px-8 py-12 md:p-12 bg-neutral-900 md:border-2 border-neutral-800 md:rounded-lg z-50`}>
+        <div className={'flex flex-row'}>
+          <div className={'flex flex-col grow'}>
+            <h2 className={'text-4xl md:text-5xl mb-2'}>{mix.title}</h2>
+            <p className={'text-2xl md:text-3xl header-light'}>{mix.artist}</p>
+          </div>
+          <div className={'flex flex-col shrink'}>
+            <div
+              className={'rounded-full p-1 border-2 border-transparent hover:border-white transition ease-in duration-100 cursor-pointer'}
+              onClick={handleClose}>
+              <FaTimes className={'text-4xl'} title={'Close music info'} />
+            </div>
+          </div>
+        </div>
+
+        {
+          mix.description &&
+          <div className={'mt-8 text-base'}>
+            {mix.description}
+          </div>
+        }
+
+        <div className={'mt-2'}>
+          <AudioPlayer assetURL={mix.audioFile} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Music() {
-  const musicData = useContext(DataContext).music;
-  let music = musicData?.filter(music => music.type === 'Single/Album');
-  let mixes = musicData?.filter(music => music.type === 'DJ Mix');
-  let productions = musicData?.filter(music => music.type === 'Production');
+  const music = useContext(DataContext).music;
+  const mixes = useContext(DataContext).mixes;
 
   let [ activeCard, setActiveCard ] = useState(null);
+  let [ musicType, setMusicType ] = useState(null);
 
   const musicAnim = { visible: { transition: { staggerChildren: 0.2 } } };
   const musicItemAnim = {
@@ -113,12 +162,17 @@ export default function Music() {
   let containerRef = useRef(null);
   let containerVisible = useOnScreen(containerRef);
 
+  const cardTypes = {
+    music: <MusicOverlay music={activeCard} onClose={() => setActiveCard(null)} />,
+    mix: <MixOverlay mix={activeCard} onClose={() => setActiveCard(null)} />
+  };
+
   return (
     <section className={'px-7 sm:px-[10%] lg:px-[12%] my-8'} id={'music'}>
       <h2 className={'mt-24 text-5xl md:text-6xl lg:text-7xl font-black py-12'}>MUSIC</h2>
 
       {
-        activeCard && <MusicOverlay music={activeCard} onClose={() => setActiveCard(null)} />
+        activeCard && cardTypes[musicType]
       }
 
       <div className={'mb-12'}>
@@ -137,7 +191,10 @@ export default function Music() {
           {
             music?.length ? music.map((card, index) => (
               <motion.div variants={musicItemAnim} key={index}>
-                <Card image={card.photo} alt={card.title} onClick={() => setActiveCard(card)}
+                <Card image={card.photo} alt={card.title} onClick={() => {
+                  setActiveCard(card);
+                  setMusicType('music');
+                }}
                       variants={musicItemAnim} />
               </motion.div>
             )) : ''
@@ -154,7 +211,10 @@ export default function Music() {
         <div className={'grid grid-cols-3'}>
           {
             mixes?.length ? mixes.map((card, index) => (
-              <Card image={card.photo} alt={card.title} onClick={() => setActiveCard(card)} key={index} />
+              <Card image={card.photo} alt={card.title} onClick={() => {
+                setActiveCard(card);
+                setMusicType('mix');
+              }} key={index} />
             )) : ''
           }
         </div>
@@ -167,11 +227,11 @@ export default function Music() {
         </h3>
 
         <div className={'grid grid-cols-3'}>
-          {
-            productions?.length ? productions.map((card, index) => (
-              <Card image={card.photo} alt={card.title} onClick={() => setActiveCard(card)} key={index} />
-            )) : ''
-          }
+          {/*{*/}
+          {/*  productions?.length ? productions.map((card, index) => (*/}
+          {/*    <Card image={card.photo} alt={card.title} onClick={() => setActiveCard(card)} key={index} />*/}
+          {/*  )) : ''*/}
+          {/*}*/}
         </div>
       </div>
     </section>

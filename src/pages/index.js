@@ -16,13 +16,20 @@ export default function Home() {
   }`;
 
   const musicQuery = `*[_type == "music"] {
-    type, title, artist, description, writtenBy, producedBy, performedBy, source, artwork, trackListing, spotifyURL,
+    title, artist, description, writtenBy, producedBy, performedBy, source, artwork, trackListing, spotifyURL,
+    'photo': photo.asset -> {url, altText, 'dimensions': metadata.dimensions}
+  }`;
+
+  const mixesQuery = `*[_type == "mix"] {
+    title, artist, description,
+    'audioFile': audioFile.asset -> url,
     'photo': photo.asset -> {url, altText, 'dimensions': metadata.dimensions}
   }`;
 
   let performancesData = useSanityQuery(performancesQuery);
   let musicData = useSanityQuery(musicQuery);
-  let apiData = { performances: performancesData, music: musicData };
+  let mixesData = useSanityQuery(mixesQuery);
+  let apiData = { performances: performancesData, music: musicData, mixes: mixesData };
 
   return (
     <DataContext.Provider value={apiData}>

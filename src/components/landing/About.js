@@ -26,11 +26,16 @@ export default function About() {
                     whileInView="visible"
                     viewport={{ once: true, margin: '-100px' }}
                     variants={aboutAnim}>
-          <motion.p className={'mb-6'} variants={aboutItemAnim}>
-            Erik Larsson (DJ Kasizzle) was a multi-billionaire by the age 21, he started off his career as a DJ then
-            slowly moved to becoming an entrepreneur doing all things he loved. He has many accomplishments such as
-            fucking your mother.
-          </motion.p>
+          <motion.div className={'mb-6'} variants={aboutItemAnim}>
+            <p className={'mb-3'}>Coveted DJ, music producer, and artist, Kasizzle (aka Erik Larsson) launched his
+              career in 2021.</p>
+
+            <p className={'mb-3'}>With a wide variety of projects he brings his own taste to everything he touches –
+              Music, DJ sets, events, etc.</p>
+
+            <p className={'mb-3'}>Kasizzle is currently in the works on his debut album, producing projects for other
+              artists, DJ:ing, and planning events at his favourite spots around Stockholm.</p>
+          </motion.div>
           <motion.p className={'mb-6'} variants={aboutItemAnim}>
             <b>Genres:</b> Rap, Reggae, Swedish Pop
           </motion.p>
