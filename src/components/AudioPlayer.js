@@ -19,18 +19,18 @@ export default function AudioPlayer(props) {
 
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 1.35);
   gradient.addColorStop(0, '#656666'); // Top color
-  gradient.addColorStop((canvas.height * 0.7) / canvas.height, '#656666'); // Top color
+  gradient.addColorStop((canvas.height * 0.7 - 1) / canvas.height, '#656666'); // Top color
+  gradient.addColorStop((canvas.height * 0.7) / canvas.height, '#ffffff'); // White line
   gradient.addColorStop((canvas.height * 0.7 + 1) / canvas.height, '#ffffff'); // White line
-  gradient.addColorStop((canvas.height * 0.7 + 2) / canvas.height, '#ffffff'); // White line
-  gradient.addColorStop((canvas.height * 0.7 + 3) / canvas.height, '#b1b1b1'); // Bottom color
+  gradient.addColorStop((canvas.height * 0.7 + 2) / canvas.height, '#b1b1b1'); // Bottom color
   gradient.addColorStop(1, '#b1b1b1'); // Bottom color
 
   const progressGradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 1.35);
   progressGradient.addColorStop(0, '#ee772f'); // Top color
-  progressGradient.addColorStop((canvas.height * 0.7) / canvas.height, '#eb4926'); // Top color
+  progressGradient.addColorStop((canvas.height * 0.7 - 1) / canvas.height, '#eb4926'); // Top color
+  progressGradient.addColorStop((canvas.height * 0.7) / canvas.height, '#ffffff'); // White line
   progressGradient.addColorStop((canvas.height * 0.7 + 1) / canvas.height, '#ffffff'); // White line
-  progressGradient.addColorStop((canvas.height * 0.7 + 2) / canvas.height, '#ffffff'); // White line
-  progressGradient.addColorStop((canvas.height * 0.7 + 3) / canvas.height, '#f6b094'); // Bottom color
+  progressGradient.addColorStop((canvas.height * 0.7 + 2) / canvas.height, '#f6b094'); // Bottom color
   progressGradient.addColorStop(1, '#f6b094'); // Bottom color
 
   const formatTime = (seconds) => {
@@ -60,20 +60,17 @@ export default function AudioPlayer(props) {
       url: props.assetURL
     });
 
+    wavesurfer.current.on('decode', (duration) => {
+      if (durationRef.current) durationRef.current.textContent = formatTime(duration);
+    });
+
     wavesurfer.current.on('ready', () => {
       if (!waveformRef.current) return;
-      
-      wavesurfer.current.on('interaction', () => {
-        setPlaying(true);
-      });
 
       waveformRef.current.addEventListener('pointermove', event => {
         if (hoverRef.current) hoverRef.current.style.width = `${event.offsetX}px`;
       });
 
-      wavesurfer.current.on('decode', (duration) => {
-        if (durationRef.current) durationRef.current.textContent = formatTime(duration);
-      });
       wavesurfer.current.on('timeupdate', (currentTime) => {
         if (timeRef.current) timeRef.current.textContent = formatTime(currentTime);
       });

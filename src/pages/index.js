@@ -12,16 +12,16 @@ export const DataContext = createContext(null);
 
 export default function Home() {
   const performancesQuery = `*[_type == "performance"] {
-    venue, artist, date, startTime, endTime
+    _id, venue, artist, date, startTime, endTime
   }`;
 
   const musicQuery = `*[_type == "music"] {
-    title, artist, description, writtenBy, producedBy, performedBy, source, artwork, trackListing, spotifyURL,
+    _id, title, artist, description, writtenBy, producedBy, performedBy, source, artwork, trackListing, spotifyURL,
     'photo': photo.asset -> {url, altText, 'dimensions': metadata.dimensions}
   }`;
 
   const mixesQuery = `*[_type == "mix"] {
-    title, artist, description,
+    _id, title, artist, description,
     'audioFile': audioFile.asset -> url,
     'photo': photo.asset -> {url, altText, 'dimensions': metadata.dimensions}
   }`;

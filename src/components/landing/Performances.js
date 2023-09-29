@@ -1,13 +1,19 @@
 import { motion } from 'framer-motion';
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { DataContext } from 'pages';
 import useOnScreen from 'utility/useOnScreen';
+import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs';
+
+const datePassed = (date1, date2) => new Date(date1).setHours(0, 0, 0, 0) < new Date(date2).setHours(0, 0, 0, 0);
 
 function Booking(props) {
   let date = new Date(props.date.replace(/-/g, '/')).toLocaleDateString('sv-SE');
+  let passed = datePassed(props.date, Date.now());
 
   return (
-    <motion.div className={'flex flex-col lg:flex-row lg:text-center mb-6 lg:mb-3 text-lg'} variants={props.variants}>
+    <motion.div
+      className={`flex flex-col lg:flex-row lg:text-center mb-6 lg:mb-3 text-lg ${passed ? 'text-neutral-400' : ''}`}
+      variants={props.variants}>
       <p className={'sm:hidden header-light flex-1 text-xl mb-1'}>{date}</p>
       <p className={'hidden sm:block flex-1'}>{date}</p>
       <p className={'flex-1 text-2xl sm:text-lg mb-2 sm:m-0'}>{props.venue}</p>
@@ -18,9 +24,27 @@ function Booking(props) {
 
 export default function Performances() {
   const performanceData = useContext(DataContext).performances;
-  let performances = performanceData?.sort((a, b) =>
+  const [ showingPrevious, setShowingPrevious ] = useState(false);
+
+  let [ performances, setPerformances ] = useState(performanceData?.filter(event =>
+    !datePassed(event.date, Date.now())
+  ).sort((a, b) =>
     new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
+  ));
+
+  useEffect(() => {
+    if (showingPrevious) {
+      setPerformances(performanceData?.sort((a, b) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime()
+      ));
+    } else {
+      setPerformances(performanceData?.filter(event =>
+        !datePassed(event.date, Date.now())
+      ).sort((a, b) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime()
+      ));
+    }
+  }, [ performanceData, showingPrevious ]);
 
   let containerRef = useRef(null);
   let containerVisible = useOnScreen(containerRef);
@@ -42,10 +66,21 @@ export default function Performances() {
                   viewport={{ once: true, margin: '-100px' }}
                   variants={performancesAnim}
                   ref={containerRef}>
+        <div className={'flex flex-row justify-center mb-6'}>
+          <a className={'cursor-pointer text-neutral-400 header-light text-base hover:text-neutral-500 select-none'}
+             onClick={() => setShowingPrevious(showing => !showing)}>
+            {
+              showingPrevious ?
+                <span className={'flex flex-row items-center'}><BsChevronDoubleUp className={'mr-2'} /> Hide past performances</span> :
+                <span className={'flex flex-row items-center'}><BsChevronDoubleDown className={'mr-2'} /> Show past performances</span>
+            }
+          </a>
+        </div>
+
         {
-          performances?.length ? performances.map((performance, index) => (
+          performances?.length ? performances.map((performance) => (
             <Booking venue={performance.venue} date={performance.date} start={performance.startTime}
-                     end={performance.endTime} key={index} variants={performancesItemAnim} />
+                     end={performance.endTime} key={performance._id} variants={performancesItemAnim} />
           )) : 'More performances to be announced'
         }
       </motion.div>

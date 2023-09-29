@@ -194,8 +194,7 @@ export default function Music() {
                 <Card image={card.photo} alt={card.title} onClick={() => {
                   setActiveCard(card);
                   setMusicType('music');
-                }}
-                      variants={musicItemAnim} />
+                }} variants={musicItemAnim} />
               </motion.div>
             )) : ''
           }
@@ -208,16 +207,24 @@ export default function Music() {
           <span className={'px-4'}>DJ Mixes</span>
         </h3>
 
-        <div className={'grid grid-cols-3'}>
+        <motion.div className={'grid grid-cols-2 lg:grid-cols-3'}
+                    initial="hidden"
+                    animate={containerVisible ? 'visible' : ''}
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-200px' }}
+                    variants={musicAnim}
+                    ref={containerRef}>
           {
             mixes?.length ? mixes.map((card, index) => (
-              <Card image={card.photo} alt={card.title} onClick={() => {
-                setActiveCard(card);
-                setMusicType('mix');
-              }} key={index} />
+              <motion.div variants={musicItemAnim} key={index}>
+                <Card image={card.photo} alt={card.title} onClick={() => {
+                  setActiveCard(card);
+                  setMusicType('mix');
+                }} variants={musicItemAnim} />
+              </motion.div>
             )) : ''
           }
-        </div>
+        </motion.div>
       </div>
 
       <div className={'mb-12'}>
