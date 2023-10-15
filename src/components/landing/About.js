@@ -37,10 +37,10 @@ export default function About() {
               artists, DJ:ing, and planning events at his favourite spots around Stockholm.</p>
           </motion.div>
           <motion.p className={'mb-6'} variants={aboutItemAnim}>
-            <b>Genres:</b> Rap, Reggae, Swedish Pop
+            <b>Genres:</b> House, Electronica, Pop, Techno, Jazz, Amapiano, Italo-Disco
           </motion.p>
           <motion.p className={'mb-6'} variants={aboutItemAnim}>
-            <b>Current venues:</b> Café Opera, End, Sturecompagniet, Patricia, Hyde
+            <b>Current venues:</b> Sturecompagniet, Hasselbacken, Patricia, Boqueria, HYDE
           </motion.p>
         </motion.div>
       </div>

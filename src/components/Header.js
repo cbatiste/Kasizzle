@@ -47,8 +47,8 @@ export default function Header() {
             <HeaderLink href={'#performances'}>UPCOMING</HeaderLink>
             <HeaderLink href={'#about'}>ABOUT</HeaderLink>
             <HeaderLink href={'#music'}>MUSIC</HeaderLink>
-            <div className={'w-[1px] h-[24px] bg-white mx-3'}></div>
-            <HeaderLink href={'https://blog.kasizzle.se'}>BLOG</HeaderLink>
+            {/*<div className={'w-[1px] h-[24px] bg-white mx-3'}></div>*/}
+            {/*<HeaderLink href={'https://blog.kasizzle.se'}>BLOG</HeaderLink>*/}
           </div>
 
           <div
@@ -85,8 +85,8 @@ export default function Header() {
             <HeaderLink onClick={handleDropdownSelect} href={'#performances'}>UPCOMING</HeaderLink>
             <HeaderLink onClick={handleDropdownSelect} href={'#about'}>ABOUT</HeaderLink>
             <HeaderLink onClick={handleDropdownSelect} href={'#music'}>MUSIC</HeaderLink>
-            <HeaderLink onClick={handleDropdownSelect} href={'https://blog.kasizzle.se'}
-                        target={'_blank'}>BLOG</HeaderLink>
+            {/*<HeaderLink onClick={handleDropdownSelect} href={'https://blog.kasizzle.se'}*/}
+            {/*            target={'_blank'}>BLOG</HeaderLink>*/}
           </div>
 
           <div className={'flex flex-row p-4 mt-2 mb-6'}>
